@@ -17,11 +17,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 //       }),
 //     }),
 //     signin: builder.mutation({
-//       query: (init) => ({
-//         url: "/users/signin",
-//         method: "POST",
-//         body: init,
-//       }),
+// query: (init) => ({
+//   url: "/users/signin",
+//   method: "POST",
+//   body: init,
+// }),
 //     }),
 //     getProducts: builder.query({
 //       query: (init) => ({
@@ -66,7 +66,13 @@ const baseQuery = fetchBaseQuery({
 export const apiSlice = createApi({
   baseQuery: baseQuery,
   endpoints: (builder) => ({
-    login: builder.mutation({}),
+    login: builder.mutation({
+      query: (init) => ({
+        url: "/users/login",
+        method: "POST",
+        body: init,
+      }),
+    }),
     getTours: builder.query({
       query: () => ({
         url: "/tours",
@@ -82,4 +88,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useGetToursQuery, useGetTourQuery } = apiSlice;
+export const { useGetToursQuery, useGetTourQuery, useLoginMutation } = apiSlice;

@@ -1347,3 +1347,8 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.btn:disabled {
+  background-color: #444;
+  color: #fff;
+}
