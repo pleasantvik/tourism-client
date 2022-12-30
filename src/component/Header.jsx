@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { getTokenCookie } from "utils/tools";
 
 export const Header = (props) => {
+  const token = getTokenCookie();
   return (
     <header className="header">
       <nav className="nav nav--tours">
@@ -36,7 +38,11 @@ export const Header = (props) => {
           />
           <span>Jonas</span>
         </Link>
-        <button className="nav__el">Log in</button>
+
+        <Link to="/login">
+          <button className="nav__el">Log in</button>
+        </Link>
+
         <button className="nav__el nav__el--cta">Sign up</button>
       </nav>
     </header>
