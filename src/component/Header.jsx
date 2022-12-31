@@ -1,14 +1,24 @@
+import axios from "axios";
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { useGetAuthQuery } from "store/apiSlice";
-import { selectCurrentToken, selectCurrentUser } from "store/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout, selectCurrentToken, selectCurrentUser } from "store/authSlice";
+import { showToast } from "utils/tools";
 
 export const Header = (props) => {
   const user = useSelector(selectCurrentUser);
   const token = useSelector(selectCurrentToken);
-  console.log(user, "Redux");
-  console.log(token, "Redux");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await axios.get("/api/v1/users/logout");
+    localStorage.removeItem("token");
+    dispatch(logout());
+    console.log("log out");
+    navigate("/");
+    showToast("SUCCESS", "Logout successfully! See you later");
+  };
 
   // const user = localStorage.getItem("currentUser");
   // const { data: user, isSuccess, isLoading } = useGetAuthQuery();
@@ -37,9 +47,9 @@ export const Header = (props) => {
       </div>
       <nav className="nav nav--user">
         {token && (
-          <Link to="/" className="nav__el">
+          <button className="nav__el" onClick={handleLogout}>
             Log out
-          </Link>
+          </button>
         )}
 
         <Link to="/" className="nav__el">

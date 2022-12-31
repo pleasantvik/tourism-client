@@ -94,6 +94,13 @@ export const apiSlice = createApi({
         // getAuthHeader,
       }),
     }),
+    logOut: builder.query({
+      query: () => ({
+        url: "/users/logout",
+        method: "GET",
+        // getAuthHeader,
+      }),
+    }),
   }),
 });
 

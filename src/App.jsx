@@ -13,6 +13,7 @@ import LoadingSpinner from "utils/Spinner";
 import { Signup } from "pages/auth/Signup";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PageNotFound } from "pages/PageNotFound";
 
 const App = () => {
   const token = localStorage.getItem("token");
@@ -42,7 +43,7 @@ const App = () => {
           <Route path="/tour/:id" element={<TourDetail />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </MainLayout>
 
