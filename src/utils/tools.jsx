@@ -104,10 +104,25 @@ export const errorHelper = (formik, value) => ({
 // // COOKIES
 export const getTokenCookie = () => cookie.load(`jwt`);
 
-// export const removeTokenCookie = () => cookie.remove("jwt", { path: "/" });
+export const removeTokenCookie = () => cookie.remove("jwt", { path: "/" });
 
-// export const getAuthHeader = () => {
-//   return {
-//     headers: { Authorization: `Bearer ${getTokenCookie()}` },
-//   };
-// };
+export const getAuthHeader = () => {
+  return {
+    headers: { Authorization: `Bearer ${getTokenCookie()}` },
+  };
+};
+
+export const showAlert = (type, msg) => {
+  let template = "";
+
+  template = <div className={`alert alert--${type}`}>{msg}</div>;
+  window.setTimeout(hideAlert, 5000);
+  return template;
+};
+export const hideAlert = () => {
+  let template = "";
+
+  // template = <div className={`alert alert--${type}`}>{msg}</div>;
+
+  return template;
+};

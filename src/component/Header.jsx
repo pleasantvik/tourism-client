@@ -1,9 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getTokenCookie } from "utils/tools";
+import { useGetAuthQuery } from "store/apiSlice";
+import { selectCurrentToken, selectCurrentUser } from "store/authSlice";
 
 export const Header = (props) => {
-  const token = getTokenCookie();
+  const user = useSelector(selectCurrentUser);
+  const token = useSelector(selectCurrentToken);
+  console.log(user, "Redux");
+  console.log(token, "Redux");
+
+  // const user = localStorage.getItem("currentUser");
+  // const { data: user, isSuccess, isLoading } = useGetAuthQuery();
+
   return (
     <header className="header">
       <nav className="nav nav--tours">
@@ -27,23 +36,32 @@ export const Header = (props) => {
         <img src="/img/logo-white.png" alt="Natours logo" />
       </div>
       <nav className="nav nav--user">
-        {/* <Link to="/" className="nav__el">
-          My bookings
-        </Link> */}
+        {token && (
+          <Link to="/" className="nav__el">
+            Log out
+          </Link>
+        )}
+
         <Link to="/" className="nav__el">
           <img
-            src="/img/users/default.jpg"
-            alt="User "
+            src={`/img/users/${
+              user?.user?.photo ? user?.user?.photo : "default.jpg"
+            }`}
+            alt=""
             className="nav__user-img"
           />
-          <span>Jonas</span>
+          <span>{user?.user?.name?.split(" ")[0]}</span>
         </Link>
-
-        <Link to="/login">
-          <button className="nav__el">Log in</button>
-        </Link>
-
-        <button className="nav__el nav__el--cta">Sign up</button>
+        {!token && (
+          <Link to="/login">
+            <button className="nav__el">Log in</button>
+          </Link>
+        )}
+        {!token && (
+          <Link to="/signup">
+            <button className="nav__el nav__el--cta">Sign up</button>
+          </Link>
+        )}
       </nav>
     </header>
   );
