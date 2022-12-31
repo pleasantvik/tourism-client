@@ -80,12 +80,14 @@ export const showToast = (type, msg) => {
     case "SUCCESS":
       toast.success(msg, {
         position: toast.POSITION.BOTTOM_RIGHT,
+        theme: "colored",
       });
       break;
 
     case "ERROR":
       toast.error(msg, {
         position: toast.POSITION.BOTTOM_RIGHT,
+        theme: "colored",
       });
 
       break;
