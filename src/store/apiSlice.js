@@ -101,6 +101,14 @@ export const apiSlice = createApi({
         // getAuthHeader,
       }),
     }),
+    updateProfile: builder.mutation({
+      query: (init) => ({
+        url: "/users/updateMe",
+        method: "PATCH",
+        body: init,
+        // getAuthHeader,
+      }),
+    }),
   }),
 });
 
@@ -109,4 +117,5 @@ export const {
   useGetTourQuery,
   useLoginMutation,
   useGetAuthQuery,
+  useUpdateProfileMutation,
 } = apiSlice;

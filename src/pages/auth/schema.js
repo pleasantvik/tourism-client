@@ -30,3 +30,27 @@ export const signup = Yup.object({
     .oneOf([Yup.ref("password"), null], "Passwords don't match")
     .required("The confirm password field is required"),
 });
+
+export const profileUpdate = Yup.object({
+  email: Yup.string()
+    .trim()
+    .required("The email field cannot be empty")
+    .email("The inputed email is invalid"),
+  name: Yup.string().trim().required("The name field cannot be empty"),
+});
+
+export const passwordUpdate = Yup.object({
+  currentPassword: Yup.string()
+    .trim()
+    .required("Current password is required")
+    .min(8, "Current password should be minimum of 8 character"),
+
+  password: Yup.string()
+    .trim()
+    .required("Password is required")
+    .min(8, "Password should be minimum of 8 character"),
+  confirmPassword: Yup.string()
+    .trim()
+    .oneOf([Yup.ref("password"), null], "Passwords don't match")
+    .required("The confirm password field is required"),
+});

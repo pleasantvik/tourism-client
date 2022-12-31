@@ -52,7 +52,7 @@ export const Header = (props) => {
           </button>
         )}
 
-        <Link to="/" className="nav__el">
+        <Link to="/me" className="nav__el">
           <img
             src={`/img/users/${
               user?.user?.photo ? user?.user?.photo : "default.jpg"
