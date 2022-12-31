@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "store/apiSlice";
 import { setCredential } from "store/authSlice";
 import LoadingSpinner from "utils/Spinner";
-import { showAlert, showToast } from "utils/tools";
+import { showToast } from "utils/tools";
 import { signin } from "./schema";
 
-export const Login = (props) => {
+export const Signup = (props) => {
   const dispatch = useDispatch();
   const [loginUser, { isLoading, isError, error, isSuccess }] =
     useLoginMutation();
@@ -36,27 +36,24 @@ export const Login = (props) => {
         dispatch(setCredential({ user: res?.data, accesstoken: res?.token }));
         localStorage.setItem("token", res?.token);
         navigate("/");
-        // props.onLogin();
-      } catch (error) {
+      } catch (err) {
         console.log("Failed to save post");
-        console.log(error);
-        const msg =
-          error?.data?.error?.message ||
-          error?.data?.message ||
-          "Something went wrong! Try again";
-        showToast("ERROR", msg);
       } finally {
         // setReqStatus('idle')
       }
     }
   };
 
+  console.log(error);
   if (isError) {
-    // props.show();
+    const msg =
+      error?.data?.error?.message ||
+      error?.data?.message ||
+      "Something went wrong! Try again";
+    showToast("ERROR", msg);
   }
   if (isSuccess) {
     showToast("SUCCESS", "Welcome");
-    showAlert("success", "welcome");
   }
 
   return (
@@ -116,7 +113,7 @@ export const Login = (props) => {
           </div>
 
           <button type="submit" className="btn btn--green" disabled={!canSave}>
-            Login
+            Signup
           </button>
         </form>
       )}

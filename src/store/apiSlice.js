@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import { setCredential, logOut } from "./authSlice";
-// import { getTokenCookie, getAuthHeader } from "utils/tools";
+import { getTokenCookie, getAuthHeader } from "utils/tools";
 
 // export const apiSlice = createApi({
 //   reducerPath: "api",
@@ -33,13 +33,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 //         },
 //       }),
 //     }),
-//     getAuth: builder.query({
-//       query: () => ({
-//         url: "/users/isauth",
-//         method: "GET",
-//         // getAuthHeader,
-//       }),
-//     }),
+// getAuth: builder.query({
+//   query: () => ({
+//     url: "/users/isauth",
+//     method: "GET",
+//     // getAuthHeader,
+//   }),
+// }),
 //   }),
 // });
 
@@ -54,7 +54,8 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token;
+    // const token = getState().auth.token;
+    const token = getTokenCookie();
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
@@ -85,7 +86,20 @@ export const apiSlice = createApi({
         method: "GET",
       }),
     }),
+
+    getAuth: builder.query({
+      query: () => ({
+        url: "/users/isauth",
+        method: "GET",
+        // getAuthHeader,
+      }),
+    }),
   }),
 });
 
-export const { useGetToursQuery, useGetTourQuery, useLoginMutation } = apiSlice;
+export const {
+  useGetToursQuery,
+  useGetTourQuery,
+  useLoginMutation,
+  useGetAuthQuery,
+} = apiSlice;
